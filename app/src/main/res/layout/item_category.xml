@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="categoryModel"
+            type="com.example.lovelocaldemo.data.models.response.CategoryProductModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="@dimen/_150sdp"
+        android:layout_height="@dimen/_150sdp"
+        android:layout_marginTop="@dimen/_25sdp"
+        android:background="@drawable/bg_category_gray_line"
+        android:padding="@dimen/_15sdp">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivCategory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_12sdp"
+            app:layout_constraintBottom_toTopOf="@id/tvCategoryName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:src="@drawable/ic_fruits" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvCategoryName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/avenirnext_demibold"
+            android:text="@{categoryModel.name}"
+            android:textColor="@color/clr_444343"
+            android:textSize="@dimen/_13ssp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:text="Fruits &amp; Vegetables" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

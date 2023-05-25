@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.dashboard.DashBoardFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/ivLocation"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:background="@color/pink"
+            android:scaleType="center"
+            android:src="@drawable/ic_location"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:riv_mutate_background="true"
+            app:riv_oval="true" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txtLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:text="@string/your_location"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_12ssp"
+            android:textStyle="normal"
+            app:layout_constraintStart_toEndOf="@id/ivLocation"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvLocation"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:maxLines="2"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_14ssp"
+            app:layout_constraintStart_toEndOf="@id/ivLocation"
+            app:layout_constraintTop_toBottomOf="@id/txtLocation"
+            tools:text="Hustle Hub Sector 2," />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_forward_arrow"
+            app:layout_constraintBottom_toBottomOf="@id/tvLocation"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/etSearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_16sdp"
+            android:background="@drawable/bg_gray"
+            android:drawableStart="@drawable/ic_search"
+            android:drawablePadding="@dimen/_10sdp"
+            android:fontFamily="@font/avenirnext_bold"
+            android:hint="@string/search_anything"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:maxLines="1"
+            android:padding="@dimen/_10sdp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/hint_8b8989"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintTop_toBottomOf="@id/ivLocation" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvCategory"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etSearch" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
