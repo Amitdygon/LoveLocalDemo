@@ -45,7 +45,7 @@ class SearchFragment : Fragment(), LocationInterface {
 
         binding.swipeRefresh.setOnRefreshListener {
             productList.clear()
-
+            productViewModel.hitGetSearchProducts(searchText)
             binding.swipeRefresh.isRefreshing = false
         }
     }
@@ -86,7 +86,6 @@ class SearchFragment : Fragment(), LocationInterface {
             it ?: return@observe
             it.data?.let { it1 -> productList.addAll(it1) }
             if (productList.isNullOrEmpty()) {
-                // show not data found
                 binding.tvNoData.visible()
             } else {
                 setUi(productList[0])
@@ -105,7 +104,6 @@ class SearchFragment : Fragment(), LocationInterface {
     override fun getLocation(location: Location?) {
         productViewModel.location.value = location
         productViewModel.hitGetSearchProducts(searchText)
-
     }
 
 
