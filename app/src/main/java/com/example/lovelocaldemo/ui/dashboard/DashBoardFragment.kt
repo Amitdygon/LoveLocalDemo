@@ -1,5 +1,8 @@
 package com.example.lovelocaldemo.ui.dashboard
 
+import android.app.Activity
+import android.content.Intent
+import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,16 +16,20 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.lovelocaldemo.R
 import com.example.lovelocaldemo.data.models.response.CategoryProductModel
 import com.example.lovelocaldemo.databinding.FragmentDashBoardBinding
+import com.example.lovelocaldemo.listener.LocationInterface
 import com.example.lovelocaldemo.ui.dashboard.adapter.CategoryAdapter
+import com.example.lovelocaldemo.utils.GoogleCurrentLocation
 import com.example.lovelocaldemo.utils.IntentConstant
-import com.google.android.gms.location.LocationListener
+import com.example.lovelocaldemo.utils.getAddress
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
 
 @AndroidEntryPoint
-class DashBoardFragment : Fragment(), LocationListener {
+class DashBoardFragment : Fragment(), LocationInterface {
     private lateinit var binding: FragmentDashBoardBinding
     private var rootView: View? = null
     private val categoryList: ArrayList<CategoryProductModel> = ArrayList()
+    private var googleLocation: GoogleCurrentLocation? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,11 +47,13 @@ class DashBoardFragment : Fragment(), LocationListener {
 
     override fun onResume() {
         super.onResume()
+        googleLocation?.checkLocationPermission()
         setListener()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        googleLocation = GoogleCurrentLocation(requireActivity(), this)
         setCategoryAdapter()
     }
 
@@ -77,18 +86,36 @@ class DashBoardFragment : Fragment(), LocationListener {
     private fun setListener() {
         binding.etSearch.setOnEditorActionListener(TextView.OnEditorActionListener { p0, p1, p2 ->
             if (p1 == EditorInfo.IME_ACTION_SEARCH) {
-                searchData()
+                if (!binding.etSearch.text.toString().trim().isNullOrEmpty()) {
+                    searchData(binding.etSearch.text.toString().trim())
+                }
+
             }
             false
         })
     }
 
-    private fun searchData() {
+    private fun searchData(search: String) {
+        val bundle = Bundle()
+        bundle.putString(IntentConstant.SEARCH, search)
+        findNavController().navigate(R.id.nav_search_fragment, bundle)
 
     }
 
-    override fun onLocationChanged(p0: Location) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (resultCode == Activity.RESULT_OK && requestCode == googleLocation?.REQUEST_LOCATION) {
+            googleLocation?.checkLocationPermission()
+        }
+    }
 
+    override fun getLocation(location: Location?) {
+        Geocoder(requireContext(), Locale("in")).getAddress(
+            latitude = location?.latitude ?: 27.0,
+            longitude = location?.longitude ?: 28.0
+        ) {
+            binding.tvLocation.text =
+                "${it?.locality} ${it?.adminArea} ${it?.countryName} ${it?.postalCode}"
+        }
     }
 
 

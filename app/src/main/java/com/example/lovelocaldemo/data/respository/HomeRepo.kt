@@ -2,7 +2,6 @@ package com.example.lovelocaldemo.data.respository
 
 import com.example.lovelocaldemo.data.ApiInterface
 import com.example.lovelocaldemo.data.base.BaseResponse
-import com.example.lovelocaldemo.data.models.request.SearchProductReq
 import com.example.lovelocaldemo.data.models.response.CategoryProductModel
 import com.example.lovelocaldemo.data.models.response.SearchProductModel
 import retrofit2.Response
@@ -16,7 +15,7 @@ class HomeRepo @Inject constructor(private val apiInterface: ApiInterface) {
         return apiInterface.hitGetProductsApi(categoryId, hashMap)
     }
 
-    suspend fun hitGetSearchProductsApi(searchProductReq: SearchProductReq): Response<BaseResponse<ArrayList<SearchProductModel>>> {
-        return apiInterface.hitGetSearchProductsApi(searchProductReq)
+    suspend fun hitGetSearchProductsApi(hashMap: HashMap<String, Any?>): Response<BaseResponse<ArrayList<SearchProductModel>>> {
+        return apiInterface.hitGetSearchProductsApi(hashMap)
     }
 }
