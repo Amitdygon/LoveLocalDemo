@@ -39,8 +39,10 @@ class DashBoardFragment : Fragment(), LocationInterface {
         // Inflate the layout for this fragment
         if (rootView == null) {
             binding = FragmentDashBoardBinding.inflate(inflater, container, false)
+            googleLocation = GoogleCurrentLocation(requireActivity(), this)
             rootView = binding.root
             getCategoryList()
+            setCategoryAdapter()
         }
         return rootView
 
@@ -52,11 +54,6 @@ class DashBoardFragment : Fragment(), LocationInterface {
         setListener()
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        googleLocation = GoogleCurrentLocation(requireActivity(), this)
-        setCategoryAdapter()
-    }
 
     private fun setCategoryAdapter() {
         binding.rvCategory.layoutManager = GridLayoutManager(requireContext(), 2)
@@ -65,7 +62,7 @@ class DashBoardFragment : Fragment(), LocationInterface {
             getProducts(categoryModel)
         }
         binding.rvCategory.adapter = adapter
-        binding.rvCategory.addItemDecoration(SimpleItemDecoration(requireContext(),8,12,0,0))
+        binding.rvCategory.addItemDecoration(SimpleItemDecoration(requireContext(), 8, 12, 0, 0))
     }
 
     private fun getProducts(categoryModel: CategoryProductModel) {
@@ -98,6 +95,7 @@ class DashBoardFragment : Fragment(), LocationInterface {
     }
 
     private fun searchData(search: String) {
+        binding.etSearch.setText("")
         val bundle = Bundle()
         bundle.putString(IntentConstant.SEARCH, search)
         findNavController().navigate(R.id.nav_search_fragment, bundle)
