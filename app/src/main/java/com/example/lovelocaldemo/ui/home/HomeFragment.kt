@@ -2,11 +2,9 @@ package com.example.lovelocaldemo.ui.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import com.example.lovelocaldemo.R
 import com.example.lovelocaldemo.databinding.FragmentHomeBinding
 import com.example.lovelocaldemo.ui.dashboard.DashBoardFragment
@@ -19,7 +17,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private var root: View? = null
-    private val homeViewModel: HomeViewModel by viewModels()
 
 
     override fun onCreateView(
@@ -29,7 +26,6 @@ class HomeFragment : Fragment() {
         // Inflate the layout for this fragment
         if (root == null) {
             binding = FragmentHomeBinding.inflate(inflater, container, false)
-//            perFormClick(1)
             root = binding.root
         }
         return root
@@ -39,7 +35,7 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.tvUserName.text = AppUtils.getLocalTimeMessage() +" Amit"
+        binding.tvUserName.text = AppUtils.getLocalTimeMessage() + " Amit"
         setFragmentAdapter()
     }
 
