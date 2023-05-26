@@ -12,6 +12,7 @@
         android:icon="@drawable/ic_feed"
         android:title="" />
 
+
     <item
         android:id="@+id/bottom_cart"
         android:icon="@drawable/ic_cart"
@@ -21,6 +22,6 @@
         android:id="@+id/bottom_wallet"
         android:icon="@drawable/ic_wallet"
         android:title="" />
-    
+
 
 </menu>

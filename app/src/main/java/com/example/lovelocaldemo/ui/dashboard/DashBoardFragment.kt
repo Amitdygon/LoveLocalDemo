@@ -20,6 +20,7 @@ import com.example.lovelocaldemo.listener.LocationInterface
 import com.example.lovelocaldemo.ui.dashboard.adapter.CategoryAdapter
 import com.example.lovelocaldemo.utils.GoogleCurrentLocation
 import com.example.lovelocaldemo.utils.IntentConstant
+import com.example.lovelocaldemo.utils.SimpleItemDecoration
 import com.example.lovelocaldemo.utils.getAddress
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
@@ -64,6 +65,7 @@ class DashBoardFragment : Fragment(), LocationInterface {
             getProducts(categoryModel)
         }
         binding.rvCategory.adapter = adapter
+        binding.rvCategory.addItemDecoration(SimpleItemDecoration(requireContext(),8,12,0,0))
     }
 
     private fun getProducts(categoryModel: CategoryProductModel) {

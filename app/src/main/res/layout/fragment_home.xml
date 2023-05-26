@@ -76,6 +76,8 @@
             app:itemBackground="@drawable/menu_item_selector"
             app:itemIconTint="@drawable/nav_bar_colors"
             app:itemRippleColor="@color/black"
+            android:clipChildren="false"
+            android:clipToPadding="false"
             app:labelVisibilityMode="unlabeled"
             app:layout_constraintBottom_toBottomOf="parent"
             app:menu="@menu/main_menu" />
