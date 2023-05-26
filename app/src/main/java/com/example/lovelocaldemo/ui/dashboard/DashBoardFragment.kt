@@ -8,11 +8,13 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.lovelocaldemo.R
 import com.example.lovelocaldemo.data.models.response.CategoryProductModel
 import com.example.lovelocaldemo.databinding.FragmentDashBoardBinding
 import com.example.lovelocaldemo.ui.dashboard.adapter.CategoryAdapter
+import com.example.lovelocaldemo.utils.IntentConstant
 import com.google.android.gms.location.LocationListener
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -57,6 +59,9 @@ class DashBoardFragment : Fragment(), LocationListener {
 
     private fun getProducts(categoryModel: CategoryProductModel) {
         //
+        val bundle = Bundle()
+        bundle.putParcelable(IntentConstant.CATEGORY_MODEL, categoryModel)
+        findNavController().navigate(R.id.nav_product_fragment, bundle)
     }
 
     private fun getCategoryList() {

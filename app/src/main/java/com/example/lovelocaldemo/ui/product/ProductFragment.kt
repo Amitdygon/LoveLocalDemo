@@ -1,32 +1,50 @@
 package com.example.lovelocaldemo.ui.product
 
+import android.os.Build
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.lovelocaldemo.R
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.lovelocaldemo.data.models.response.CategoryProductModel
+import com.example.lovelocaldemo.databinding.FragmentProductBinding
+import com.example.lovelocaldemo.ui.product.adapter.ProductAdapter
+import com.example.lovelocaldemo.utils.IntentConstant
+import com.example.lovelocaldemo.utils.SimpleItemDecoration
+import com.example.lovelocaldemo.utils.visible
+import dagger.hilt.android.AndroidEntryPoint
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [ProductFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+@AndroidEntryPoint
 class ProductFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private lateinit var binding: FragmentProductBinding
+    private val productViewModel: ProductViewModel by viewModels()
+    private val productList: ArrayList<CategoryProductModel> = ArrayList()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+    private var productAdapter: ProductAdapter? = null
+    private val categoryModel by lazy {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            arguments?.getParcelable(
+                IntentConstant.CATEGORY_MODEL,
+                CategoryProductModel::class.java
+            )
+        } else {
+            arguments?.getParcelable(
+                IntentConstant.CATEGORY_MODEL
+            )
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        setListener()
+    }
+
+    private fun setListener() {
+        binding.toolbar.setNavigationOnClickListener {
+            findNavController().popBackStack()
         }
     }
 
@@ -35,26 +53,46 @@ class ProductFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_product, container, false)
+        binding = FragmentProductBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ProductFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ProductFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setUi()
+        setAdapter()
+        setObservers()
     }
+
+    private fun setUi() {
+        with(binding) {
+            this.categoryModel = this@ProductFragment.categoryModel
+            executePendingBindings()
+        }
+        productViewModel.hitGetProductApi(categoryModel?.id ?: 0)
+    }
+
+    private fun setAdapter() {
+        productAdapter = categoryModel?.let { ProductAdapter(it) }
+        binding.rvProducts.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        binding.rvProducts.adapter = productAdapter
+        binding.rvProducts.addItemDecoration(SimpleItemDecoration(requireContext(), 20, 20, 18, 0))
+
+    }
+
+    private fun setObservers() {
+        productViewModel.productListResponse.observe(viewLifecycleOwner) {
+            it ?: return@observe
+            it.data?.let { it1 -> productList.addAll(it1) }
+            if (productList.isNullOrEmpty()) {
+                // show not data found
+                binding.tvNoData.visible()
+            }
+            productAdapter?.setData(productList)
+
+        }
+    }
+
+
 }

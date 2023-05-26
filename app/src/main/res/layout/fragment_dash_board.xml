@@ -8,17 +8,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.makeramen.roundedimageview.RoundedImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivLocation"
             android:layout_width="@dimen/_40sdp"
             android:layout_height="@dimen/_40sdp"
-            android:background="@color/pink"
+            android:background="@drawable/bg_circle_pink"
             android:scaleType="center"
             android:src="@drawable/ic_location"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:riv_mutate_background="true"
-            app:riv_oval="true" />
+            />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/txtLocation"

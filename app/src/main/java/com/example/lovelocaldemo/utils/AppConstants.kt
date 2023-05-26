@@ -8,7 +8,6 @@ object ValidationCode {
     const val PHONE_NUMBER = 3
 }
 
-object IntenetConstant{
-
-    const val EnteredResponse ="EnteredResponse"
+object IntentConstant{
+    const val CATEGORY_MODEL="CATEGORY_MODEL"
 }

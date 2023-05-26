@@ -1,22 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.makeramen.roundedimageview.RoundedImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivProductImage"
             android:layout_width="@dimen/_78sdp"
             android:layout_height="@dimen/_78sdp"
-            android:background="@color/white"
+            android:background="@drawable/bg_category_gray_line"
+            android:padding="@dimen/_2sdp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:riv_border_color="@color/clr_e9e6e6"
-            app:riv_border_width="@dimen/_1sdp"
-            app:riv_corner_radius="@dimen/_12sdp"
-            app:riv_mutate_background="true" />
+            app:layout_constraintTop_toTopOf="parent" />
 
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvProductName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_16sdp"
+            android:layout_marginEnd="@dimen/_16sdp"
+            android:fontFamily="@font/avenirnext_demibold"
+            android:maxLines="2"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_16ssp"
+            app:layout_constraintEnd_toStartOf="@id/btnAdd"
+            app:layout_constraintStart_toEndOf="@id/ivProductImage"
+            app:layout_constraintTop_toTopOf="@id/ivProductImage"
+            tools:text="Dates 500 gms" />
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvDiscount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_9sdp"
+            android:fontFamily="@font/avenirnext_medium"
+            android:textColor="@color/clr_979797"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintBottom_toBottomOf="@id/tvPrice"
+            app:layout_constraintStart_toStartOf="@id/tvProductName"
+            app:layout_constraintTop_toBottomOf="@id/tvProductName"
+            tools:text="55" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_1sdp"
+            android:background="@color/clr_979797"
+            app:layout_constraintBottom_toBottomOf="@id/tvDiscount"
+            app:layout_constraintEnd_toEndOf="@id/tvDiscount"
+            app:layout_constraintStart_toStartOf="@id/tvDiscount"
+            app:layout_constraintTop_toTopOf="@id/tvDiscount" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_9sdp"
+            android:fontFamily="@font/avenirnext_bold"
+            android:textColor="@color/clr_1f1e1e"
+            android:textSize="@dimen/_14ssp"
+            app:layout_constraintStart_toEndOf="@id/tvDiscount"
+            app:layout_constraintTop_toBottomOf="@id/tvProductName"
+            tools:text="51 Rs" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnAdd"
+            android:layout_width="81dp"
+            android:layout_height="30dp"
+            android:background="@drawable/bg_button_cornor_rounded"
+            android:fontFamily="@font/avenirnext_demibold"
+            android:text="@string/add"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_14ssp"
+            app:layout_constraintBottom_toBottomOf="@id/ivProductImage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/ivProductImage" />
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:background="@drawable/bg_line_dash"
+            app:layout_constraintTop_toBottomOf="@id/ivProductImage" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
