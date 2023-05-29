@@ -18,6 +18,7 @@ import com.example.lovelocaldemo.data.models.response.CategoryProductModel
 import com.example.lovelocaldemo.databinding.FragmentDashBoardBinding
 import com.example.lovelocaldemo.listener.LocationInterface
 import com.example.lovelocaldemo.ui.dashboard.adapter.CategoryAdapter
+import com.example.lovelocaldemo.ui.product.ProductActivity
 import com.example.lovelocaldemo.utils.GoogleCurrentLocation
 import com.example.lovelocaldemo.utils.IntentConstant
 import com.example.lovelocaldemo.utils.SimpleItemDecoration
@@ -67,9 +68,9 @@ class DashBoardFragment : Fragment(), LocationInterface {
 
     private fun getProducts(categoryModel: CategoryProductModel) {
         //
-        val bundle = Bundle()
-        bundle.putParcelable(IntentConstant.CATEGORY_MODEL, categoryModel)
-        findNavController().navigate(R.id.nav_product_fragment, bundle)
+        val intent = Intent(requireContext(), ProductActivity::class.java)
+        intent.putExtra(IntentConstant.CATEGORY_MODEL, categoryModel)
+        startActivity(intent)
     }
 
     private fun getCategoryList() {

@@ -43,9 +43,6 @@ class HomeFragment : Fragment() {
     private fun setFragmentAdapter() {
         val fragmentList: ArrayList<Fragment> = ArrayList()
         fragmentList.add(DashBoardFragment())
-//        fragmentList.add(DashBoardFragment())
-//        fragmentList.add(DashBoardFragment())
-//        fragmentList.add(DashBoardFragment())
         binding.viewPager.adapter = ViewPagerAdapter(childFragmentManager, fragmentList)
         binding.viewPager.currentItem = 0
     }
