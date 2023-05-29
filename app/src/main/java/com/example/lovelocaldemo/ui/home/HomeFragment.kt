@@ -7,11 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.lovelocaldemo.R
 import com.example.lovelocaldemo.databinding.FragmentHomeBinding
-import com.example.lovelocaldemo.ui.cart.CartListFragment
 import com.example.lovelocaldemo.ui.dashboard.DashBoardFragment
-import com.example.lovelocaldemo.ui.feed.FeedFragment
 import com.example.lovelocaldemo.ui.home.adapter.ViewPagerAdapter
-import com.example.lovelocaldemo.ui.wallet.WalletFragment
 import com.example.lovelocaldemo.utils.AppUtils
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -40,15 +37,17 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.tvUserName.text = AppUtils.getLocalTimeMessage() + " Amit"
         setFragmentAdapter()
+
     }
 
     private fun setFragmentAdapter() {
         val fragmentList: ArrayList<Fragment> = ArrayList()
         fragmentList.add(DashBoardFragment())
-//        fragmentList.add(FeedFragment())
-//        fragmentList.add(CartListFragment())
-//        fragmentList.add(WalletFragment())
+//        fragmentList.add(DashBoardFragment())
+//        fragmentList.add(DashBoardFragment())
+//        fragmentList.add(DashBoardFragment())
         binding.viewPager.adapter = ViewPagerAdapter(childFragmentManager, fragmentList)
+        binding.viewPager.currentItem = 0
     }
 
     override fun onResume() {
@@ -61,9 +60,9 @@ class HomeFragment : Fragment() {
         binding.bottomMenu.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.bottom_home -> binding.viewPager.setCurrentItem(0, true)
-//                R.id.bottom_cart -> binding.viewPager.setCurrentItem(2, true)
-//                R.id.bottom_wallet -> binding.viewPager.setCurrentItem(3, true)
-//                R.id.bottom_feed -> binding.viewPager.setCurrentItem(1, true)
+                /*  R.id.bottom_cart -> binding.viewPager.setCurrentItem(2, true)
+                  R.id.bottom_wallet -> binding.viewPager.setCurrentItem(3, true)
+                  R.id.bottom_feed -> binding.viewPager.setCurrentItem(1, true)*/
             }
             true
         }
