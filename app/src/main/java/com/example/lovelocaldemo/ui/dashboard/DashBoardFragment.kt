@@ -62,7 +62,7 @@ class DashBoardFragment : Fragment(), LocationInterface {
             getProducts(categoryModel)
         }
         binding.rvCategory.adapter = adapter
-        binding.rvCategory.addItemDecoration(SimpleItemDecoration(requireContext(), 8, 12, 0, 0))
+//        binding.rvCategory.addItemDecoration(SimpleItemDecoration(requireContext(), 8, 12, 0, 0))
     }
 
     private fun getProducts(categoryModel: CategoryProductModel) {
